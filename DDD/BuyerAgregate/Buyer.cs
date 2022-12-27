@@ -1,5 +1,4 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace DDD.BuyerAgregate
@@ -36,6 +35,10 @@ namespace DDD.BuyerAgregate
                 CardType = cardType;
             }
         }
+        public override string ToString()
+        {
+            return "Id: " + Id + " Buyer: " + BuyerRoot.Name + " PaymentMethod: " + PaymentMethod;
+        }
         
     }
     
@@ -45,7 +48,7 @@ namespace DDD.BuyerAgregate
         public static Buyer CreateBuyer(TypeOfPaymentMethod paymentMethod, PaymentSystem? paymentSystem)
         {
             var buyer = new Buyer(Guid.NewGuid());
-            var buyerRoot = new BuyerRoot("Крамцов Глеб", "Рязанская обл,ул. Московская, д 55");
+            var buyerRoot = new BuyerRoot("Крамцов Глеб", new DateTime(2000,9,15));
             buyer.addByuerRoot(buyerRoot);
             buyer.AddPaymentMethod(paymentMethod);
             buyer.AddCardType(paymentSystem);

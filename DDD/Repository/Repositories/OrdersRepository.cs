@@ -1,45 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DDD.OrderAgregate;
-using DDD.Repository.Context;
+
 
 namespace DDD.Repository.Repositories
 {
-    public class OrdersRepository: IRepository<Order>
+    public class OrderRepository : IRepository<Order>
     {
-        private readonly DbContext _context;
-        private IRepository<Order> _repositoryImplementation;
-
-        public OrdersRepository(DbContext context)
+        private static readonly List<Order> OrderList = new()
         {
-            _context = context;
+            OrderFactory.CreateOrder(new Address("399021", "Рязань", "Московская", "32", "21")),
+            OrderFactory.CreateOrder(new Address("78948542", "Москва", "9-я Парковая", "62", "19"))
+
+        };
+
+        public IEnumerable<Order> GetAll()
+        {
+            return OrderList;
         }
 
-        public void Dispose()
+        public Order? GetById(Guid id)
         {
+            return OrderList.Find(order => order.Id == id);
         }
 
-        public IEnumerable<Order> GetList() => _context.Orders.Select(e => e.Value);
-
-        public Order Get(int id) => _context.Orders[id];
-        void IRepository<Order>.Create(Order item)
+        public void Add(Order order)
         {
-            _repositoryImplementation.Create(item);
+            OrderList.Add(order);
         }
 
-        public Order Create(Order item)
+        public void Update(Order order)
         {
-            _context.Orders.Add(item.Id, item);
-            return item;
+            var findOrder = OrderList.Find(entity => entity.Id == order.Id);
+            if (findOrder != null)
+            {
+                OrderList.Remove(findOrder);
+                OrderList.Add(order);
+            }
         }
 
-        public void Update(Order item) => _context.Orders[item.Id] = item;
-
-        public void Delete(int id) => _context.Orders.Remove(id);
-        public void Save()
+        public void Delete(Order order)
         {
-            _repositoryImplementation.Save();
+            var findOrder = OrderList.Find(entity => entity.Id == order.Id);
+            if (findOrder != null)
+            {
+                OrderList.Remove(findOrder);
+            }
         }
     }
 }

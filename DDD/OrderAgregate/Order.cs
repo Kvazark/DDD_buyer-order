@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DDD.BuyerAgregate;
 
 namespace DDD.OrderAgregate
@@ -16,26 +17,35 @@ namespace DDD.OrderAgregate
     //заказ
     public class Order
     {
-        public int Id { get; set; }
-        public Buyer Buyer { get; set; }
+        public Guid Id { get; set; }
+        // public Buyer Buyer { get; set; }
         
         public StatusOrder Status { get; private set; }
-        public List<Product> Products { get; set; }
         
-        public Address AddressBuyer { get; set; }
+        public List<Product> Products { get; private set; }
         
-        private Order()
+        public Address Address { get; set; }
+        
+        public Order(Guid id,Address address)
         {
-            Random rnd = new Random();
-            Id = rnd.Next(10000,100000);
-            Status = StatusOrder.onTheWay;
-            Products = new List<Product>();
+            Id = id;
+            Address = address;
+        }
+        
+        public void AddProduct(Product product)
+        {
+            Products.Add(product);
         }
 
-        public Order(Buyer buyer)
+        public void GetStatusOrder(StatusOrder status)
         {
-            Buyer = buyer;
+            Status = status;
         }
+        public override string ToString()
+        {
+            return "Id: " + Id + " Product Count: " + Products.Count() + " Status: " + Status;
+        }
+
 
        
     }
@@ -43,9 +53,9 @@ namespace DDD.OrderAgregate
 //фабрика
     public class OrderFactory
     {
-        public Order CreateOrder(Buyer buyer)
+        public static Order CreateOrder(Address address)
         {
-            var order = new Order(buyer);
+            var order = new Order(Guid.NewGuid(), address);
             return order;
         }
     }

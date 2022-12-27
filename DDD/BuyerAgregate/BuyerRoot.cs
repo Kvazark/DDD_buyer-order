@@ -6,12 +6,12 @@ namespace DDD.BuyerAgregate
     {
         public Guid Id = Guid.NewGuid();
         public string Name { get; set; }
-        public string Address { get; set; }
+        public DateTime  DateOfB { get; set; }
 
-        public BuyerRoot(string name, string address)
+        public BuyerRoot(string name, DateTime  dateOfB)
         {
             Name = name;
-            Address = address;
+            DateOfB = dateOfB;
         }
     }
 }

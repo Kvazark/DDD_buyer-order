@@ -47,7 +47,6 @@
         <Compile Include="OrderAgregate\Product.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Repository\Context\DbContext.cs" />
         <Compile Include="Repository\Repositories\BuyerRepository.cs" />
         <Compile Include="Repository\Repositories\IRepository.cs" />
         <Compile Include="Repository\Repositories\OrdersRepository.cs" />
