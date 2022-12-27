@@ -30,6 +30,7 @@ namespace DDD.OrderAgregate
         {
             Id = id;
             Address = address;
+            Products = new List<Product>();
         }
         
         public void AddProduct(Product product)
@@ -43,11 +44,9 @@ namespace DDD.OrderAgregate
         }
         public override string ToString()
         {
-            return "Id: " + Id + " Product Count: " + Products.Count() + " Status: " + Status;
+            return "Id: " + Id + ". Количество товаров в заказе: " + Products.Count() + ", статус: " + Status;
         }
 
-
-       
     }
     
 //фабрика

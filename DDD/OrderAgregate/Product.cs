@@ -4,16 +4,15 @@ namespace DDD.OrderAgregate
 {
     public class Product
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         
-        public Product(string name, decimal price)
+        public Product(string name, double price)
         {
             Name = name;
-            Price = price;
-            Random rnd = new Random();
-            Id = rnd.Next(1000,10000);
+            Price = (decimal) price;
+            Id =  Guid.NewGuid();
         }
 
     }

@@ -6,44 +6,49 @@ namespace DDD.Repository.Repositories
 {
     public class BuyerRepository : IRepository<Buyer>
     {
-        private static readonly List<Buyer> BuyerList = new()
+      
+        private List<Buyer> _buyers;
+
+        public BuyerRepository()
         {
-            BuyerFactory.CreateBuyer(TypeOfPaymentMethod.Card, PaymentSystem.Visa),
-            BuyerFactory.CreateBuyer(TypeOfPaymentMethod.Cash, null)
-        };
+            _buyers = new List<Buyer>();
+            // _buyers.Add(BuyerFactory.CreateBuyer(TypeOfPaymentMethod.Card, PaymentSystem.Mastercard));
+            // _buyers.Add(BuyerFactory.CreateBuyer(TypeOfPaymentMethod.Cash, null));
+        }
+
 
         public IEnumerable<Buyer> GetAll()
         {
-            return BuyerList;
+            return _buyers;
         }
 
-        public Buyer? GetById(Guid id)
+        public Buyer GetById(Guid id)
         {
-            return BuyerList.Find(buyer => buyer.Id == id);
+            return _buyers.Find(buyer => buyer.Id == id);
         }
 
         public void Add(Buyer buyer)
         {
-            BuyerList.Add(buyer);
+            _buyers.Add(buyer);
         }
 
         public void Update(Buyer buyer)
         {
-            var findBuyer = BuyerList.Find(entity => entity.Id == buyer.Id);
+            var findBuyer = _buyers.Find(entity => entity.Id == buyer.Id);
             if (findBuyer != null)
             {
-                BuyerList.Remove(findBuyer);
-                BuyerList.Add(buyer);
+                _buyers.Remove(findBuyer);
+                _buyers.Add(buyer);
             }
         }
         
 
         public void Delete(Buyer buyer)
         {
-            var findBuyer = BuyerList.Find(entity => entity.Id == buyer.Id);
+            var findBuyer = _buyers.Find(entity => entity.Id == buyer.Id);
             if (findBuyer != null)
             {
-                BuyerList.Remove(findBuyer);
+                _buyers.Remove(findBuyer);
             }
         }
         

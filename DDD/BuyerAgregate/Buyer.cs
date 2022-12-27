@@ -37,7 +37,7 @@ namespace DDD.BuyerAgregate
         }
         public override string ToString()
         {
-            return "Id: " + Id + " Buyer: " + BuyerRoot.Name + " PaymentMethod: " + PaymentMethod;
+            return "Id: " + Id + ". Покупатель: " + BuyerRoot.Name +", дата рождения: "+BuyerRoot.DateOfB + ", метод оплаты: " + PaymentMethod;
         }
         
     }

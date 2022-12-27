@@ -24,11 +24,8 @@ namespace DDD
             {
                 Console.WriteLine(findBuyer.ToString());
             }
-
-            Console.WriteLine("--------------------------------------------------------");
-
-//------------------ Orders --------------------//
-
+            Console.WriteLine(" ");
+            
             var orderRepository = new OrderRepository();
             var allOrders = orderRepository.GetAll().ToList();
             foreach (var order in allOrders)
@@ -37,8 +34,8 @@ namespace DDD
             }
 
             var order1 = OrderFactory.CreateOrder(new Address("987825","Санкт-Петербург", "2-я Утиная улица", "43","35"));
-            order1.AddProduct(new Product("Product 1", 459));
-            order1.AddProduct(new Product("Product 2", 1020));
+            order1.AddProduct(new Product("Product 1", 459.0));
+            order1.AddProduct(new Product("Product 2", 1020.8));
             order1.GetStatusOrder(StatusOrder.onTheWay);
 
             orderRepository.Add(order1);
